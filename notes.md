@@ -22,7 +22,7 @@ derivative rules
 integral rules (identities)
 
 
-example problem / inteface we want:
+example problem / interface we want:
 
 ```
 solve("2x + 4 = 8", "x")
@@ -48,13 +48,12 @@ finished.
 
 
 
-Ok so officially dubbed milestone one is complete. We have a basic parser which supports parsing PEMDAS expressions, basic functions, and an equation mode which has two arbsome kind of integral solver that goes in the following chain
+Ok so officially dubbed milestone one is complete. We have a basic parser which supports parsing PEMDAS expressions, basic functions, and an equation mode which has two arbitrary expressions on either side of the "=" sign.  some kind of integral solver that goes in the following chain
 1. identity
 2. 
 
 
 
-itrary expressions on either side of the "=" sign.
 
 The next step would be to implement some sort of interpreter / transformer on the ast. The first thing is to clean up the tree and lift it to Python objects that we make up from it's parse tree representation.
 
@@ -112,7 +111,7 @@ that's why you have to do something like:
 
 which is what the original `calc.py` example shows.
 
-having a lower precident thing explicitly on the right and the the higher precedent thing on the left
+having a lower precedent thing explicitly on the right and the the higher precedent thing on the left
 makes sum always match first on the left side.
 
 

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cas-experiment"
+name = "kCAS"
 version = "0.1.0"
 description = ""
 authors = ["ynx0"]
