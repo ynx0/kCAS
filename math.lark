@@ -1,0 +1,54 @@
+// start: root ("\n" root)? "\n"*
+?start: equation
+      | expr
+
+// equation: expr "=" expr -> eqn
+
+equation: VAR "=" expr  -> asn
+        | expr "=" expr -> eqn
+
+
+
+
+// this could be _expr to make it explicit
+// because every use of expr only has one child
+// so it is a useless wrapper to preserve
+?expr: sum
+     | product
+     | exponent
+     | atom
+
+?sum: sum "+" sum  -> add
+    | sum "-" sum  -> sub
+    | product
+
+
+?product: product "*" exponent  -> mul
+        | product "/" exponent  -> div
+        | exponent
+
+?exponent: atom "**" atom -> exp
+         | atom
+
+
+?atom: NUMBER            -> num
+     | VAR               -> var
+     | "(" expr ")"      -> par
+     | FUNC "(" expr ")" -> fun
+     | "-" atom          -> neg
+
+VAR: LCASE_LETTER
+
+
+FUNC: "sin"
+    | "cos"
+    | "tan"
+    | "sqrt"
+    | "log"
+    | "ln"
+
+%import common.NUMBER
+%import common.LCASE_LETTER
+%import common.WS_INLINE
+
+%ignore WS_INLINE // tabs and spaces
