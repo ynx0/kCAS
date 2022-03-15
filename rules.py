@@ -54,6 +54,7 @@ class InlineNegNum(Rule):
 
 class InlineConstant(Rule):
 
+    # todo extend this to simplifying funcs w/ constant exprs. ez but gotta do it
     # n is of the form 4 * 5, i.e. BinOp(MUL, a=4, b=2)
     def matches(n: Node):
         return type(n) == BinaryOp \
@@ -184,7 +185,7 @@ class SimpNegatorAssoc(Rule):
         b = n.b
         nn = b if type(a) == Num and a.val == -1 else a  # the non negative node
 
-        if n.op == BinaryOp.MUL:
+        if n.op == BinaryOp.Op.MUL:
             # -1 * n = n * -1 = -b
             return UnaryOp(UnaryOp.Op.NEG, nn)
 
@@ -201,8 +202,8 @@ class SimpNegatorNonAssoc(Rule):
         a = n.a
         b = n.b
 
-        if type(a) == Num and n.b.val == -1:
-            if n.op == BinaryOp.DIV:
+        if type(b) == Num and n.b.val == -1:
+            if n.op == BinaryOp.Op.DIV:
                 # a / -1 = -a
                 return UnaryOp(UnaryOp.Op.NEG, a)
             
