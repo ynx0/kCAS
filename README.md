@@ -1,6 +1,7 @@
 # kCAS
 
-<center><b>k</b>indof a <b>CAS</b></center>
+<p align="left" ><b>k</b>ind of a <b>CAS</b></p>
+<sub><i>kind of </i> as in <i> not really</i></sub>
 
 
 ## Usage
