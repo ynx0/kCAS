@@ -14,58 +14,60 @@ from lark.exceptions import UnexpectedInput
 # todo https://docs.python.org/3/library/readline.html
 # or maybe: https://github.com/Textualize/textual
 
-if __name__ == '__main__':
 
+def main():
     ctx: Dict[str, Node] = dict()
 
+    while 1:
+        command = None
+        
+        text = input('> ')
+        
+        if text == '':
+            continue
+        
+
+        if text.startswith('simp '):
+            command = 'simp'
+            text = text.replace('simp ', '')
+        elif text.startswith('raw '):
+            command = 'raw'
+            text = text.replace('raw ', '')
+        elif text == 'vars':
+            print(ctx)
+            continue
+
+        try:
+            expr = parse(text)
+
+
+        except UnexpectedInput as e:
+            print('Error: bad expression')
+            print(e)
+            continue
+        
+        if type(expr) == Assignment:
+            ctx[expr.lhs.name] = expr.rhs
+            continue
+
+        try:
+            ret = None
+            if command == None:
+                ret = evaluate(expr, ctx)
+            elif command == 'simp':
+                ret = simplify(expr)
+            elif command == 'raw':
+                ret = expr
+        except UnboundVariableError:
+            print('Error: unbound variable exception')
+            continue
+        
+        print(ret)
+
+
+if __name__ == '__main__':
     try:
-        while 1:
-            command = None
-            
-            text = input('> ')
-            
-            if text == '':
-                continue
-            
-
-            if text.startswith('simp '):
-                command = 'simp'
-                text = text.replace('simp ', '')
-            elif text.startswith('raw '):
-                command = 'raw'
-                text = text.replace('raw ', '')
-            elif text == 'vars':
-                print(ctx)
-                continue
-
-            try:
-                expr = parse(text)
-
-
-            except UnexpectedInput as e:
-                print('Error: bad expression')
-                print(e)
-                continue
-            
-            if type(expr) == Assignment:
-                ctx[expr.lhs.name] = expr.rhs
-                continue
-
-            try:
-                ret = None
-                if command == None:
-                    ret = evaluate(expr, ctx)
-                elif command == 'simp':
-                    ret = simplify(expr)
-                elif command == 'raw':
-                    ret = expr
-            except UnboundVariableError:
-                print('Error: unbound variable exception')
-                continue
-            
-            print(ret)
-
-
+        main()
     except (KeyboardInterrupt, EOFError):
         sys.exit()
 
