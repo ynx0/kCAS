@@ -2,8 +2,11 @@ from abc import ABC
 from enum import Enum, unique
 
 
+# TODO we need to implement deep equals
+
 # this file could also be called types.py
 # Proper Types for Equation / Node tree
+
 
 # root object. either an equation or a node
 class Obj(ABC):
