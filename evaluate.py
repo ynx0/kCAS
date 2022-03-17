@@ -3,11 +3,11 @@ from typing import Dict
 from cas.model import *
 
 
-# Node Evaluation
 class UnboundVariableError(RuntimeError):
 	pass
 
 
+# Node Evaluation
 def evaluate(n: Node, bound_vars: Dict[str, Node] = None):
 	assert n.is_node, f'Parameter {n}: {type(n)} is not a node'
 	bound_vars = bound_vars or dict()

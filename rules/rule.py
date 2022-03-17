@@ -11,6 +11,8 @@ class Rule(ABC):
 	@staticmethod
 	@abstractmethod
 	def matches(n: Node) -> bool:
+		# does the node's structure match.
+		# in other words, is the node in such a condition that can we apply the rule?
 		pass
 
 	@staticmethod
