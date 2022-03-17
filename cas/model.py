@@ -1,4 +1,3 @@
-from typing import Union
 from abc import ABC
 from enum import Enum, unique
 
@@ -9,25 +8,13 @@ from enum import Enum, unique
 # root object. either an equation or a node
 class Obj(ABC):
 
-	def __str__(self):
-		n = self
-		# assert type(n) == Equation or issubclass(type(n), Node), f'Invalid input type {type(n)}'
-		if type(n) == Num:
-			# remove decimal if float is int
-			val = int(n.val) if n.val.is_integer() else n.val
-			return str(val)
-		elif type(n) == Var:
-			return n.name
-		elif type(n) == Function:
-			return f"{n.f.value}({n.x})"
-		elif type(n) == UnaryOp:
-			return f"{n.op.value}{n.a}"
-		elif type(n) == BinaryOp:
-			return f"{n.a} {n.op.value} {n.b}"
-		elif type(n) == Equation or type(n) == Assignment:
-			return f"{n.lhs} = {n.rhs}"
-		else:
-			assert False, f'Unhandled node type {type(n)}'
+	@property
+	def is_node(self):
+		return issubclass(type(self), Node)
+
+	@property
+	def is_equation(self):
+		return issubclass(type(self), Equation)
 
 
 class Node(Obj, ABC):
@@ -41,6 +28,9 @@ class Equation(Obj):
 
 	def __repr__(self):
 		return f"Equation(lhs={self.lhs} rhs={self.rhs})"
+
+	def __str__(self):
+		return f"{self.lhs} = {self.rhs}"
 
 
 class Assignment(Equation):
@@ -69,6 +59,9 @@ class BinaryOp(Node):
 	def __repr__(self):
 		return f"BinOp(op={self.op.name}, a={self.a} b={self.b})"
 
+	def __str__(self):
+		return f"{self.a} {self.op.value} {self.b}"
+
 
 class UnaryOp(Node):
 	class Op(Enum):
@@ -80,6 +73,9 @@ class UnaryOp(Node):
 
 	def __repr__(self):
 		return f"UnaryOp(op={self.op.name}, a={self.a})"
+
+	def __str__(self):
+		return f"{self.op.value}{self.a}"
 
 
 class Function(Node):
@@ -99,6 +95,9 @@ class Function(Node):
 	def __repr__(self):
 		return f"Fn({self.f.name}, x={self.x})"
 
+	def __str__(self):
+		return f"{self.f.value}({self.x})"
+
 
 class Var(Node):
 	def __init__(self, name: str):
@@ -107,6 +106,9 @@ class Var(Node):
 
 	def __repr__(self):
 		return f"Var({self.name})"
+
+	def __str__(self):
+		return self.name
 
 
 class Num(Node):
@@ -117,12 +119,8 @@ class Num(Node):
 	def __repr__(self):
 		return f"Num({self.val})"
 
+	def __str__(self):
+		# remove decimal if float is int
+		val = int(self.val) if self.val.is_integer() else self.val
+		return str(val)
 
-# misc functions
-
-def is_node(o: Union[Equation, Node]):
-	return issubclass(type(o), Node)
-
-
-def is_equation(o: Union[Equation, Node]):
-	return type(o) == Equation

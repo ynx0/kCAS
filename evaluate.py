@@ -6,13 +6,10 @@ from cas.model import *
 # Node Evaluation
 class UnboundVariableError(RuntimeError):
 	pass
-# def __init__(self, msg):
-#     super().__init__(msg)
-#     self.msg = msg
 
 
 def evaluate(n: Node, bound_vars: Dict[str, Node] = None):
-	assert is_node(n), f'Parameter {n}: {type(n)} is not a node'
+	assert n.is_node, f'Parameter {n}: {type(n)} is not a node'
 	bound_vars = bound_vars or dict()
 
 	if type(n) == Num:
@@ -41,7 +38,8 @@ def evaluate(n: Node, bound_vars: Dict[str, Node] = None):
 		if n.op == UnaryOp.Op.NEG:
 			return -1 * x
 		else:
-			assert False, 'unreachable'
+			assert False, f'Unhandled unary operation {n.op}'
+
 	elif type(n) == BinaryOp:
 		a = evaluate(n.a, bound_vars)
 		b = evaluate(n.b, bound_vars)
@@ -57,7 +55,7 @@ def evaluate(n: Node, bound_vars: Dict[str, Node] = None):
 		elif n.op == BinaryOp.Op.EXP:
 			return a ** b
 		else:
-			assert False, f'unreachable'
+			assert False, f'Unhandled binary operation {n.op}'
 
 	else:
 		print(f'evaluate: unimplemented node type {type(n)}')
