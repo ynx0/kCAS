@@ -25,6 +25,10 @@ If you say so.
 - `-a / sin(12)`
 - `simp (cos(x**(2 + 1)) + (0 * y)) / 2`
 
+## Why?
+
+For fun. Also parsers are cool.
+
 ## Why is it broken?
 
 Yes.
