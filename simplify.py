@@ -1,11 +1,10 @@
+# Rules
 from functools import partial
 
 from cas.model import *
-
-# Rules
-from .simplify import *
-from .canonical import canon
-from .rule import Rule
+from rules.canonical import canon
+from rules.simplify import *
+from rules.rule import Rule
 
 
 def simplify(n: Node) -> Node:
@@ -55,7 +54,7 @@ def simplify(n: Node) -> Node:
 		assert False, f'Unhandled node type {type(n)}'
 
 
-def simplify_deep(n: Node, max_iter = 100):
+def simplify_deep(n: Node, max_iter=100):
 	# keep running simplify on the expr until it is equal to
 	# the previous simplified output or max depth or timeout exceeded
 	i = 0

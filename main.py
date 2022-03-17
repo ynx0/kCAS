@@ -7,7 +7,7 @@ from lark.exceptions import UnexpectedInput
 from cas.model import Node, Assignment
 from cas.parser import parse
 from evaluate import evaluate, UnboundVariableError
-from rules.rules import simplify
+from simplify import simplify
 
 
 # use equation syntax for variable binding
