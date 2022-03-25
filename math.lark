@@ -18,8 +18,8 @@ equation: VAR "=" expr  -> asn
      | exponent
      | atom
 
-?sum: sum "+" sum  -> add
-    | sum "-" sum  -> sub
+?sum: sum "+" product  -> add
+    | sum "-" product  -> sub
     | product
 
 
