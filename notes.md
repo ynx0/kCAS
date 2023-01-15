@@ -151,4 +151,18 @@ bigints
 
 recursive user-defined functions (with memoziation)
 
+keep fractions as fractions and simplify them
+i.e  1/3 + 1/4 + 1/5 = (1/3 + 1/4) + 1/5 = (4+3)/12 + 1/5 = 7/12 + 1/5 = (35+12)/(60) = 47/60
+
+
+
+
+### 18 sep 2022
+
+idea:
+
+have a minilanguage to encode boolean logic statements and transform them as well using the "tactics" engine.
+
+be able to do basic simplification, as well as later represent basic proofs and verify them
+
 
